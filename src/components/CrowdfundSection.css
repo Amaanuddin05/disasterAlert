@@ -1,0 +1,215 @@
+.crowdfund-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  background-color: #f5f7fa;
+}
+
+.create-campaign-section,
+.active-campaigns-section {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(20, 33, 61, 0.08);
+  padding: 2rem;
+}
+
+h2 {
+  color: #14213d;
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+}
+
+.campaign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-weight: 600;
+  color: #14213d;
+}
+
+.form-group input,
+.form-group textarea {
+  padding: 0.75rem;
+  border: 2px solid #e5e5e5;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #fca311;
+  box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.1);
+}
+
+.submit-button {
+  background: #fca311;
+  color: white;
+  border: none;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.submit-button:hover {
+  background: #e69100;
+}
+
+.campaigns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.campaign-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(20, 33, 61, 0.08);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+.campaign-card:hover {
+  transform: translateY(-4px);
+}
+
+.campaign-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.campaign-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.campaign-image img:hover {
+  transform: scale(1.05);
+}
+
+.campaign-content {
+  padding: 1.5rem;
+}
+
+.campaign-content h3 {
+  color: #14213d;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.campaign-content p {
+  color: #666;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.5;
+}
+
+.campaign-progress {
+  margin-bottom: 1rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: #e5e5e5;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+  height: 100%;
+  background: #4caf50;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-between;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.donate-button {
+  width: 100%;
+  background: #14213d;
+  color: white;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
+}
+
+.donate-button:hover {
+  background: #233657;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .crowdfund-container {
+    padding: 1rem;
+    gap: 2rem;
+  }
+
+  .create-campaign-section,
+  .active-campaigns-section {
+    padding: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .campaigns-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .create-campaign-section,
+  .active-campaigns-section {
+    padding: 1rem;
+  }
+
+  .campaign-image {
+    height: 180px;
+  }
+
+  .campaign-content {
+    padding: 1rem;
+  }
+
+  .campaign-content h3 {
+    font-size: 1.2rem;
+  }
+} 

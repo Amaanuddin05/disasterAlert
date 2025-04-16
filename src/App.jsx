@@ -5,6 +5,7 @@ import CommunitySection from './components/CommunitySection'
 import CrowdfundSection from './components/CrowdfundSection';
 import CampaignDetails from './components/CampaignDetails';
 import RecentNews from './components/RecentNews';
+import ThreatSeverityIndicator from './components/ThreatSeverityIndicator';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -19,6 +20,14 @@ function App() {
             <Route path="/crowdfund" element={<CrowdfundSection />} />
             <Route path="/campaign/:id" element={<CampaignDetails />} />
             <Route path="/news" element={<RecentNews />} />
+            <Route path="/threat" element={
+              <div className="threat-page">
+                <h1 className="threat-page-title">Current Threat Assessment</h1>
+                <div className="threat-indicator-container">
+                  <ThreatSeverityIndicator threatLevel={2} />
+                </div>
+              </div>
+            } />
           </Routes>
         </div>
       </div>

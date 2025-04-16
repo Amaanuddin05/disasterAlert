@@ -58,6 +58,13 @@ export default function Navbar() {
           >
             Recent News
           </Link>
+          <Link 
+            to="/threat" 
+            className={`nav-link ${location.pathname === '/threat' ? 'active' : ''}`}
+            onClick={closeMenu}
+          >
+            Threat Level
+          </Link>
         </div>
       </div>
     </nav>

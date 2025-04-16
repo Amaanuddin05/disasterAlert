@@ -10,23 +10,28 @@ export default function RecentNews() {
     const fetchNews = async () => {
       try {
         setLoading(true);
-        const response = await fetch(
-          'https://api.reliefweb.int/v1/reports?appname=disasteralert&preset=latest&limit=12&query[value]=disaster'
-        );
-        
+        const apiKey = '45ee229485b44ca18f88b80daff416d9';
+        // Use qInTitle to filter for these terms only in the title
+        const query = '"natural disaster" OR earthquake OR flood OR hurricane OR tsunami OR landslide OR wildfire';
+        const url = `https://newsapi.org/v2/everything?qInTitle=${query}&sortBy=publishedAt&language=en&pageSize=12&apiKey=${apiKey}`;
+
+        const response = await fetch(url);
+
         if (!response.ok) {
           throw new Error(`Failed to fetch news: ${response.status} ${response.statusText}`);
         }
-        
+
         const data = await response.json();
-        console.log('News data:', data); // Debug log
-        
-        if (data && data.data && Array.isArray(data.data)) {
-          setNews(data.data);
+        console.log('Filtered Disaster News:', data);
+
+        if (data.articles && Array.isArray(data.articles)) {
+          // Filter out articles without images
+          const filteredNews = data.articles.filter(article => article.urlToImage);
+          setNews(filteredNews);
         } else {
           throw new Error('Unexpected API response format');
         }
-        
+
         setLoading(false);
       } catch (err) {
         console.error('News fetch error:', err);
@@ -38,15 +43,12 @@ export default function RecentNews() {
     fetchNews();
   }, []);
 
-  // Format the date to a more readable format
   const formatDate = (dateString) => {
     if (!dateString) return 'Unknown date';
-    
     try {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(dateString).toLocaleDateString(undefined, options);
     } catch {
-      // Ignore the error and return a fallback
       return 'Invalid date';
     }
   };
@@ -77,7 +79,7 @@ export default function RecentNews() {
       <div className="news-container">
         <h1>Recent Disaster News</h1>
         <div className="error-message">
-          <p>No news articles found.</p>
+          <p>No disaster-related news articles with images found.</p>
         </div>
       </div>
     );
@@ -87,38 +89,25 @@ export default function RecentNews() {
     <div className="news-container">
       <h1>Recent Disaster News</h1>
       <div className="news-grid">
-        {news.map((item) => (
-          <div key={item.id} className="news-card">
-            {item.fields.file && item.fields.file.url && (
-              <div className="news-image">
-                <img src={item.fields.file.url} alt={item.fields.title} />
-              </div>
-            )}
-            {!item.fields.file?.url && (
-              <div className="news-image no-image">
-                <div className="placeholder-image">News</div>
-              </div>
-            )}
+        {news.map((article, index) => (
+          <div key={index} className="news-card">
+            <div className="news-image">
+              <img src={article.urlToImage} alt={article.title} />
+            </div>
             <div className="news-content">
-              <h2>{item.fields.title || 'Untitled'}</h2>
+              <h2>{article.title || 'Untitled'}</h2>
               <div className="news-meta">
-                <span className="news-date">
-                  {item.fields.date ? formatDate(item.fields.date.created) : 'Unknown date'}
-                </span>
-                {item.fields.source && item.fields.source.length > 0 && (
-                  <span className="news-source">{item.fields.source[0].name}</span>
-                )}
+                <span className="news-date">{formatDate(article.publishedAt)}</span>
+                {article.source && <span className="news-source">{article.source.name}</span>}
               </div>
               <p className="news-description">
-                {item.fields.body 
-                  ? `${item.fields.body.slice(0, 200)}...` 
-                  : 'No description available'}
+                {article.description ? `${article.description.slice(0, 200)}...` : 'No description available'}
               </p>
-              {item.fields.url && (
-                <a 
-                  href={item.fields.url} 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
+              {article.url && (
+                <a
+                  href={article.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="read-more-button"
                 >
                   Read More
@@ -130,4 +119,4 @@ export default function RecentNews() {
       </div>
     </div>
   );
-} 
+}

@@ -257,9 +257,9 @@ h2 {
   font-size: 0.9rem;
 }
 
-.donate-button {
+.campaign-content .donate-button {
   width: 100%;
-  background: #14213d;
+  background: #14213d !important;
   color: white;
   border: none;
   padding: 0.75rem;
@@ -267,12 +267,13 @@ h2 {
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   margin-top: 1rem;
 }
 
-.donate-button:hover {
-  background: #233657;
+.campaign-content .donate-button:hover {
+  background:#e69100 !important;
+  transform: translateY(-2px);
 }
 
 /* Responsive Styles */

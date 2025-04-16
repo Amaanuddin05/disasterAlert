@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './CrowdfundSection.css';
 
 export default function CrowdfundSection() {
+  const navigate = useNavigate();
   const [campaigns] = useState([
     {
       id: 1,
@@ -140,7 +142,12 @@ export default function CrowdfundSection() {
                     <span>of ${campaign.goal.toLocaleString()}</span>
                   </div>
                 </div>
-                <button className="donate-button">Donate Now</button>
+                <button 
+                  className="donate-button"
+                  onClick={() => navigate(`/campaign/${campaign.id}`)}
+                >
+                  View More
+                </button>
               </div>
             </div>
           ))}

@@ -4,6 +4,7 @@ import Home from './components/Home'
 import CommunitySection from './components/CommunitySection'
 import CrowdfundSection from './components/CrowdfundSection';
 import CampaignDetails from './components/CampaignDetails';
+import RecentNews from './components/RecentNews';
 import Navbar from './components/Navbar';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/community" element={<CommunitySection />} />
             <Route path="/crowdfund" element={<CrowdfundSection />} />
             <Route path="/campaign/:id" element={<CampaignDetails />} />
+            <Route path="/news" element={<RecentNews />} />
           </Routes>
         </div>
       </div>

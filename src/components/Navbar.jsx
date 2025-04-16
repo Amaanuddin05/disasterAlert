@@ -51,6 +51,13 @@ export default function Navbar() {
           >
             Crowdfund
           </Link>
+          <Link 
+            to="/news" 
+            className={`nav-link ${location.pathname === '/news' ? 'active' : ''}`}
+            onClick={closeMenu}
+          >
+            Recent News
+          </Link>
         </div>
       </div>
     </nav>

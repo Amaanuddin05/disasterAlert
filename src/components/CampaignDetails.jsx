@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './CampaignDetails.css';
 
 export default function CampaignDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   
   // This would typically come from an API/database
   const [campaign] = useState({
@@ -32,28 +33,39 @@ export default function CampaignDetails() {
     ]
   });
 
-  const handleDonation = () => {
-    const options = {
-      key: 'rzp_test_uR6R221eI2qJQP',
-      amount: 1000,
-      name: 'Disaster Alert',
-      description: `Donation for ${campaign.title}`,
-      image: campaign.image,
-      handler: function(response) {
-        alert('Payment successful! Payment ID: ' + response.razorpay_payment_id);
-      },
-      prefill: {
-        name: '',
-        email: '',
-        contact: ''
-      },
-      theme: {
-        color: '#14213d'
-      }
-    };
+  const [showDonationForm, setShowDonationForm] = useState(false);
+  const [donationData, setDonationData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    amount: ''
+  });
 
-    const rzp = new window.Razorpay(options);
-    rzp.open();
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setDonationData({
+      ...donationData,
+      [name]: value
+    });
+  };
+
+  const handleDonationClick = () => {
+    setShowDonationForm(true);
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Navigate to checkout page with donation data
+    navigate('/checkout', { 
+      state: { 
+        donationData,
+        campaign: {
+          id: campaign.id,
+          title: campaign.title,
+          image: campaign.image
+        }
+      } 
+    });
   };
 
   return (
@@ -71,16 +83,75 @@ export default function CampaignDetails() {
             </div>
             <div className="progress-stats">
               <div className="raised-amount">
-                <h2>${campaign.raised.toLocaleString()}</h2>
-                <p>raised of ${campaign.goal.toLocaleString()} goal</p>
+                <h2>₹{campaign.raised.toLocaleString()}</h2>
+                <p>raised of ₹{campaign.goal.toLocaleString()} goal</p>
               </div>
-              <button className="donate-button" onClick={handleDonation}>
+              <button className="donate-button" onClick={handleDonationClick}>
                 Donate Now
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {showDonationForm && (
+        <div className="donation-form-overlay">
+          <div className="donation-form-container">
+            <h2>Make a Donation</h2>
+            <form onSubmit={handleFormSubmit} className="donation-form">
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={donationData.name}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={donationData.email}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="phone">Phone Number</label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  value={donationData.phone}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label htmlFor="amount">Donation Amount (₹)</label>
+                <input
+                  type="number"
+                  id="amount"
+                  name="amount"
+                  min="1"
+                  value={donationData.amount}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+              <div className="form-buttons">
+                <button type="button" className="cancel-button" onClick={() => setShowDonationForm(false)}>Cancel</button>
+                <button type="submit" className="proceed-button">Proceed to Checkout</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
 
       <div className="campaign-content-grid">
         <div className="main-content">
@@ -110,7 +181,7 @@ export default function CampaignDetails() {
                 <div key={index} className="donor-card">
                   <div className="donor-info">
                     <span className="donor-name">{donor.name}</span>
-                    <span className="donor-amount">${donor.amount.toLocaleString()}</span>
+                    <span className="donor-amount">₹{donor.amount.toLocaleString()}</span>
                   </div>
                   <div className="donor-date">{donor.date}</div>
                 </div>

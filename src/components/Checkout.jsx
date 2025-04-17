@@ -91,7 +91,7 @@ export default function Checkout() {
           
           <div className="summary-item highlight">
             <span>Donation Amount:</span>
-            <span>${donationData.amount}</span>
+            <span>₹{donationData.amount}</span>
           </div>
         </div>
         
@@ -100,7 +100,7 @@ export default function Checkout() {
             Cancel
           </button>
           <button className="pay-btn" onClick={handlePayment} disabled={isProcessing}>
-            {isProcessing ? 'Processing...' : `Pay $${donationData.amount}`}
+            {isProcessing ? 'Processing...' : `Pay ₹${donationData.amount}`}
           </button>
         </div>
       </div>

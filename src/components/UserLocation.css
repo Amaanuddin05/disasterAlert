@@ -1,0 +1,112 @@
+.location-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #f5f7fa;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(20, 33, 61, 0.08);
+}
+
+.location-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #14213d;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.status {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  color: #666;
+}
+
+.location-info {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.location-info p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.map-container {
+  width: 100% !important;
+  height: 400px !important;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+}
+
+/* Custom marker icon */
+.default-marker-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Make sure the map fills the container */
+.leaflet-container {
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* Override Leaflet's z-index to work within our container */
+.leaflet-pane {
+  z-index: 1 !important;
+}
+
+.leaflet-control {
+  z-index: 2 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 3 !important;
+}
+
+.location-note {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #666;
+  max-width: 400px;
+  margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+  .location-container {
+    padding: 1.5rem;
+  }
+  
+  .map-container {
+    height: 350px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .location-container {
+    padding: 1rem;
+  }
+  
+  .location-title {
+    font-size: 1.5rem;
+  }
+  
+  .map-container {
+    height: 300px !important;
+  }
+} 
